@@ -5,7 +5,7 @@ var Velocity = Vector2()
 var Speed = 64
 var Gravity = 320
 var JumpHeight = 128
-var Dir = Vector2(0, -1)
+const UpDir = Vector2(0, -1)
 const Left = 0
 const Right = 1
 
@@ -61,4 +61,4 @@ func _process(delta):
     if is_on_floor() && Input.is_action_pressed("Jump"):
         Velocity.y = -JumpHeight
 
-    Velocity = move_and_slide(Velocity, Dir)
+    Velocity = move_and_slide(Velocity, UpDir)
