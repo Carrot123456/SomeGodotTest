@@ -5,12 +5,20 @@ using System;
 public class MrFoo : KinematicBody2D
 {
     Vector2 Velocity = new Vector2();
-    float Speed = 64;
-    float Gravity = 320;
-    float JumpHeight = 128;
     Vector2 UpDir = new Vector2(0, -1);
-    const int Left = 0;
-    const int Right = 1;
+    PackedScene BulletScene = new PackedScene();
+    int FooDir = Right;
+    int IsLookingUpOrDown = 0;
+    float ShootTimer = 0;
+    const float ShootCooldown = (float)0.2;
+    const int Left = 1, Right = 2, Up = 3, Down = 4;
+    const float Speed = 64, Gravity = 320, JumpHeight = 128;
+
+
+    public override void _Ready()
+    {
+        BulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
+    }
 
 
     private float SmoothDecAbs(float Current, float Dec)
@@ -64,23 +72,20 @@ public class MrFoo : KinematicBody2D
     }
 
 
-    public override void _Ready()
-    {
-        
-    }
-
-
     public override void _Process(float delta)
     {
         Velocity.y += delta * Gravity;
 
+
         if (Input.IsActionPressed("Right"))
         {
             Velocity.x = SmoothIncAbs(Velocity.x, Speed * 20 * delta, Speed, Right);
+            FooDir = Right;
         }
         else if (Input.IsActionPressed("Left"))
         {
             Velocity.x = SmoothIncAbs(Velocity.x, Speed * 20 * delta, Speed, Left);
+            FooDir = Left;
         }
         else
         {
@@ -91,5 +96,34 @@ public class MrFoo : KinematicBody2D
             Velocity.y = -JumpHeight;
 
         Velocity = MoveAndSlide(Velocity, UpDir);
+
+
+        if (Input.IsActionPressed("Up"))
+        {
+            IsLookingUpOrDown = Up;
+        }
+        else if (Input.IsActionPressed("Down"))
+        {
+            IsLookingUpOrDown = Down;
+        }
+        else
+        {
+            IsLookingUpOrDown = 0;
+        }
+
+
+        ShootTimer -= delta;
+        if (ShootTimer <= 0)
+        {
+            ShootTimer = 0;
+        }
+        if (Input.IsActionPressed("Shoot") && ShootTimer == 0)
+        {
+            Bullet NewNode = (Bullet)BulletScene.Instance();
+            NewNode.Initialize(Position, FooDir, IsLookingUpOrDown);
+            GetParent().AddChild(NewNode);
+
+            ShootTimer = ShootCooldown;
+        }
     }
 }
