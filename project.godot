@@ -79,6 +79,7 @@ Down={
 
 2d_physics/layer_1="MrFoo"
 2d_physics/layer_2="TileMap"
+2d_physics/layer_3="FooEnemies"
 
 [rendering]
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/MrFoo.cs" type="Script" id=1]
 [ext_resource path="res://Images/MrFoo.png" type="Texture" id=2]
 [ext_resource path="res://Images/FooBlock.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/FooEnemy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -62,11 +63,12 @@ extents = Vector2( 8, 16 )
 tile_set = SubResource( 2 )
 cell_size = Vector2( 16, 16 )
 collision_layer = 2
+collision_mask = 5
 format = 1
-tile_data = PoolIntArray( 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0 )
+tile_data = PoolIntArray( -1048558, 0, 0, -1048557, 0, 0, -983023, 0, 0, -917488, 0, 0, -851953, 0, 0, -720928, 0, 0, -720927, 0, 0, -786417, 0, 0, -655391, 0, 0, -655390, 0, 0, -655389, 0, 0, -720881, 0, 0, -589853, 0, 0, -655346, 0, 0, -524316, 0, 0, -524315, 0, 0, -589811, 0, 0, -458778, 0, 0, -458777, 0, 0, -524275, 0, 0, -393241, 0, 0, -393240, 0, 0, -393239, 0, 0, -458739, 0, 0, -327703, 0, 0, -327702, 0, 0, -393203, 0, 0, -262166, 0, 0, -262165, 0, 0, -327668, 0, 0, -196629, 0, 0, -262133, 0, 0, -262132, 0, 0, -131093, 0, 0, -196597, 0, 0, -65557, 0, 0, -65556, 0, 0, -131062, 0, 0, -131061, 0, 0, -20, 0, 0, -19, 0, 0, -65526, 0, 0, 65518, 0, 0, 65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 8, 0, 0, 9, 0, 0, 131059, 0, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 65543, 0, 0, 65544, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0 )
 
 [node name="MrFoo" type="KinematicBody2D" parent="."]
-collision_mask = 3
+collision_mask = 6
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MrFoo"]
@@ -78,3 +80,15 @@ texture = ExtResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="MrFoo/CollisionShape2D"]
 current = true
 zoom = Vector2( 0.25, 0.25 )
+
+[node name="FooEnemy" parent="." instance=ExtResource( 4 )]
+position = Vector2( -80, -8 )
+
+[node name="FooEnemy2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -168, -72 )
+
+[node name="FooEnemy3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 88, -56 )
+
+[node name="FooEnemy4" parent="." instance=ExtResource( 4 )]
+position = Vector2( -248, -80 )

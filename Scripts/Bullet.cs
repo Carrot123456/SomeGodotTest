@@ -51,4 +51,14 @@ public class Bullet : Node2D
 
         Position = new Vector2(X, Y);
     }
+    
+    private void _on_F_area_entered(object area)
+    {
+        QueueFree();
+    }
+
+    private void _on_F_body_entered(object body)
+    {
+        
+    }
 }
